@@ -1,7 +1,5 @@
 <div class="sidebar-about">
-  <span class="site__title">
-    <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
-  </span>
+    {{ if and (isset .Site.Params "authorimage") (not (isset .Site.Params.social "gravatar")) }}
         {{ with .Site.Params.authorimage }}
             {{ $strippedSlash := ($.Site.Params.authorimage | replaceRE "^(/)+(.*)" "$2") }}
             {{ $authorImage := (printf "%s%s" $.Site.BaseURL $strippedSlash) }}
@@ -16,6 +14,9 @@
             class="img--circle img--headshot element--center" alt="gravatar">
     </div>
     {{ end }}
+    <span class="site__title">
+        <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+    </span>
     <p class="site__description">
         {{ with .Site.Params.description }} {{.}} {{end}}
     </p>
